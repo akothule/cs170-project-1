@@ -100,6 +100,31 @@ class Heuristics:
                            [4, 5, 6],
                            [7, 8, 0]]
 
+    def calculate_misplaced_tile(self, state: List[List[int]]) -> int:
+        misplaced_tile_heuristic = 0
+        # loop through each tile in state
+        for i in range(0, 3):
+            for j in range(0, 3):
+                # increment misplaced_tile_heuristic for every tile not equal to goal_state
+                if state[i][j] != 0 and (state[i][j] != self.goal_state[i][j]):
+                    misplaced_tile_heuristic += 1
+        return misplaced_tile_heuristic
+
+    def calculate_manhattan_distance(self, state: List[List[int]]) -> int:
+        manhattan_distance_heuristic = 0
+        # loop through each tile in state
+        for i in range(0, 3):
+            for j in range(0, 3):
+                # if tile isn't equal to goal_state, find distance
+                tile = state[i][j]
+                if tile != 0 and (tile != self.goal_state[i][j]):
+                    # find where tile should be
+                    goal_coords = [(tile - 1) // 3, (tile - 1) % 3]
+                    # add the distance to manhattan_distance_heuristic
+                    manhattan_distance_heuristic += abs(i - goal_coords[0]) + abs(j - goal_coords[1])
+
+        return manhattan_distance_heuristic
+
     def uniform_cost_search(self):
         # TODO implement this
         return 0
