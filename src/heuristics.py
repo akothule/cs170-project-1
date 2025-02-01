@@ -1,5 +1,5 @@
 from typing import List
-
+from copy import deepcopy
 
 class Node:
     def __init__(self, state: List[List[int]], parent, depth):
@@ -9,8 +9,6 @@ class Node:
         self.parent = parent
         # depth of node
         self.depth = depth
-        # list of child nodes
-        self.children = []
 
         # coords of blank stored as [row, column] starting from index 0
         self.blank_coords = []
@@ -46,52 +44,52 @@ class Node:
         # first check if possible
         if self.blank_coords[1] > 0:
             # create a new child node, copying the parent state
-            left_child = Node(self.state, self, self.depth + 1)
+            left_child = Node(deepcopy(self.state), self, self.depth + 1)
             # move the blank to the left
             left_child.move_tile(self.blank_coords[0], self.blank_coords[1] - 1)
-            # append left_child to children array
-            self.children.append(left_child)
 
-        return 0
+            return left_child
+
+        return None
 
     # expands the node where the blank is moved to the right
     def expand_right(self):
         # first check if possible
         if self.blank_coords[1] < 2:
             # create a new child node, copying the parent state
-            right_child = Node(self.state, self, self.depth + 1)
+            right_child = Node(deepcopy(self.state), self, self.depth + 1)
             # move the blank to the right
             right_child.move_tile(self.blank_coords[0], self.blank_coords[1] + 1)
-            # append right_child to children array
-            self.children.append(right_child)
 
-        return 0
+            return right_child
+
+        return None
 
     # expands the node where the blank is moved up
     def expand_up(self):
         # first check if possible
         if self.blank_coords[0] > 0:
             # create a new child node, copying the parent state
-            up_child = Node(self.state, self, self.depth + 1)
+            up_child = Node(deepcopy(self.state), self, self.depth + 1)
             # move the blank up
             up_child.move_tile(self.blank_coords[0] - 1, self.blank_coords[1])
-            # append up_child to children array
-            self.children.append(up_child)
 
-        return 0
+            return up_child
+
+        return None
 
     # expands the node where the blank is moved down
     def expand_down(self):
         # first check if possible
         if self.blank_coords[0] < 2:
             # create a new child node, copying the parent state
-            down_child = Node(self.state, self, self.depth + 1)
+            down_child = Node(deepcopy(self.state), self, self.depth + 1)
             # move the blank down
             down_child.move_tile(self.blank_coords[0] + 1, self.blank_coords[1])
-            # append down_child to children array
-            self.children.append(down_child)
 
-        return 0
+            return down_child
+
+        return None
 
 
 class Heuristics:
