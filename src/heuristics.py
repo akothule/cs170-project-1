@@ -177,6 +177,8 @@ class Heuristics:
             # if EMPTY(nodes) then return "failure" (we have proved there is no solution!)
             if len(frontier_nodes) == 0:
                 # return null as there is no solution
+                print("There is no solution for given initial state: ")
+                initial_node.print_state()
                 return None
             
             # node = REMOVE-FRONT(nodes)
