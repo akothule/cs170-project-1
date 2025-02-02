@@ -108,12 +108,13 @@ class Node:
 
 
 class Heuristics:
+    # static goal state
+    goal_state = [[1, 2, 3],
+                  [4, 5, 6],
+                  [7, 8, 0]]
+    
     def __init__(self, initial_state: List[List[int]]):
         self.initial_state = initial_state
-
-        self.goal_state = [[1, 2, 3],
-                           [4, 5, 6],
-                           [7, 8, 0]]
 
     def calculate_misplaced_tile(self, state: List[List[int]]) -> int:
         misplaced_tile_heuristic = 0
@@ -121,7 +122,7 @@ class Heuristics:
         for i in range(0, 3):
             for j in range(0, 3):
                 # increment misplaced_tile_heuristic for every tile not equal to goal_state
-                if state[i][j] != 0 and (state[i][j] != self.goal_state[i][j]):
+                if state[i][j] != 0 and (state[i][j] != Heuristics.goal_state[i][j]):
                     misplaced_tile_heuristic += 1
         return misplaced_tile_heuristic
 
@@ -132,15 +133,17 @@ class Heuristics:
             for j in range(0, 3):
                 # if tile isn't equal to goal_state, find distance
                 tile = state[i][j]
-                if tile != 0 and (tile != self.goal_state[i][j]):
+                if tile != 0 and (tile != Heuristics.goal_state[i][j]):
                     # find where tile should be
-                    goal_coords = [(tile - 1) // 3, (tile - 1) % 3]
+                    goal_coords = ((tile - 1) // 3, (tile - 1) % 3)
                     # add the distance to manhattan_distance_heuristic
                     manhattan_distance_heuristic += abs(i - goal_coords[0]) + abs(j - goal_coords[1])
 
         return manhattan_distance_heuristic
 
     '''
+    pseudo code for general search algorithm
+     
     function general-search(problem, QUEUEING-FUNCTION)
         nodes = MAKE-QUEUE(MAKE-NODE(problem.INITIAL-STATE))
         loop do
@@ -171,12 +174,15 @@ class Heuristics:
             # keep the max queue size stored
             max_queue_size = max(max_queue_size, len(frontier_nodes))
 
+            # if EMPTY(nodes) then return "failure" (we have proved there is no solution!)
             if len(frontier_nodes) == 0:
-                print("no solution")
+                # return null as there is no solution
+                return None
+            
             # node = REMOVE-FRONT(nodes)
             node = heapq.heappop(frontier_nodes)
             # if problem.GOAL - TEST(node.STATE) succeeds
-            if node.state == self.goal_state:
+            if node.state == Heuristics.goal_state:
                 # goal state reached
                 print(f"Depth of solution: {node.depth}")
                 print(f"Number of nodes expanded: {nodes_expanded}")
@@ -200,21 +206,24 @@ class Heuristics:
                 # check if the child is already visited
                 child_tuple = tuple(map(tuple, expanded_node.state))
                 if child_tuple not in visited:
+                    # calculate heuristic cost of expanded nodes
                     expanded_node.heuristic_cost = heuristic_function(expanded_node.state)
+                    # push expanded nodes to queue
                     heapq.heappush(frontier_nodes, expanded_node)
 
 
     def uniform_cost_search(self):
-        # TODO implement this
         print("\nUniform Cost Search")
+        # call reusable A* function and pass heuristic function as parameter
+        # hard code heuristic function to return 0
         return self.a_star_search(lambda _: 0)
 
     def a_star_misplaced_tile(self):
-        # TODO implement this
         print("\nA* with misplaced tile heuristic")
+        # call reusable A* function and pass misplaced tile heuristic function as parameter
         return self.a_star_search(self.calculate_misplaced_tile)
 
     def a_star_manhattan_distance(self):
-        # TODO implement this
         print("\nA* with manhattan distance heuristic")
+        # call reusable A* function and pass manhattan distance heuristic function as parameter
         return self.a_star_search(self.calculate_manhattan_distance)
