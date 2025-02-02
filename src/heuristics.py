@@ -1,5 +1,6 @@
 from typing import List
 from copy import deepcopy
+import heapq
 
 class Node:
     def __init__(self, state: List[List[int]], parent, depth):
@@ -7,8 +8,10 @@ class Node:
         self.state = state
         # parent of current node
         self.parent = parent
-        # depth of node
+        # depth of node: g(n)
         self.depth = depth
+        # heuristic cost of current node: h(n)
+        self.heuristic_cost = 0
 
         # coords of blank stored as [row, column] starting from index 0
         self.blank_coords = []
@@ -18,6 +21,11 @@ class Node:
                 self.blank_coords.append(i)
                 self.blank_coords.append(self.state[i].index(0))
                 break
+
+    # overriding __lt__ to allow heapq to pop the node with the lowest heuristic cost
+    def __lt__(self, other):
+        # For heapq comparison - compares f(n) = g(n) + h(n)
+        return (self.depth + self.heuristic_cost) < (other.depth + other.heuristic_cost)
 
     # function for moving a single tile
     def move_tile(self, row, col):
@@ -91,6 +99,13 @@ class Node:
 
         return None
 
+    # expands all possible nodes
+    def expand_all(self):
+        # expand nodes in all directions
+        nodes = [self.expand_left(), self.expand_right(), self.expand_up(), self.expand_down()]
+        # filter out null nodes where node can't be expanded in that direction
+        return [node for node in nodes if node]
+
 
 class Heuristics:
     def __init__(self, initial_state: List[List[int]]):
@@ -125,14 +140,81 @@ class Heuristics:
 
         return manhattan_distance_heuristic
 
+    '''
+    function general-search(problem, QUEUEING-FUNCTION)
+        nodes = MAKE-QUEUE(MAKE-NODE(problem.INITIAL-STATE))
+        loop do
+            if EMPTY(nodes)
+                then return "failure" (we have proved there is no solution!)
+            node = REMOVE-FRONT(nodes)
+            if problem.GOAL-TEST(node.STATE) succeeds
+                then return node
+            nodes = QUEUEING-FUNCTION(nodes, EXPAND(node, problem.OPERATORS))
+        end
+    '''
+
+    def a_star_search(self, heuristic_function):
+        # create the root node with the initial state
+        initial_node = Node(deepcopy(self.initial_state), None, 0)
+        # nodes = MAKE-QUEUE(MAKE-NODE(problem.INITIAL-STATE))
+        frontier_nodes = [initial_node]
+        # convert frontier_nodes into a heap
+        heapq.heapify(frontier_nodes)
+        # keep track of visited nodes
+        visited = set()
+        # counter for number of nodes expanded
+        nodes_expanded = 0
+        # keep track of maximum size of queue
+        max_queue_size = 0
+
+        while True:
+            # keep the max queue size stored
+            max_queue_size = max(max_queue_size, len(frontier_nodes))
+
+            if len(frontier_nodes) == 0:
+                print("no solution")
+            # node = REMOVE-FRONT(nodes)
+            node = heapq.heappop(frontier_nodes)
+            # if problem.GOAL - TEST(node.STATE) succeeds
+            if node.state == self.goal_state:
+                # goal state reached
+                print(f"Depth of solution: {node.depth}")
+                print(f"Number of nodes expanded: {nodes_expanded}")
+                print(f"Maximum queue size: {max_queue_size}")
+                return node
+
+            # convert state to tuple for hashing
+            state_tuple = tuple(map(tuple, node.state))
+            # check if state is already visited
+            if state_tuple in visited:
+                continue
+
+            # add the tuple to visited set
+            visited.add(state_tuple)
+
+            # nodes = QUEUEING-FUNCTION(nodes, EXPAND(node, problem.OPERATORS))
+            expanded_nodes = node.expand_all()
+            # increment the number of nodes expanded
+            nodes_expanded += 1
+            for expanded_node in expanded_nodes:
+                # check if the child is already visited
+                child_tuple = tuple(map(tuple, expanded_node.state))
+                if child_tuple not in visited:
+                    expanded_node.heuristic_cost = heuristic_function(expanded_node.state)
+                    heapq.heappush(frontier_nodes, expanded_node)
+
+
     def uniform_cost_search(self):
         # TODO implement this
-        return 0
+        print("\nUniform Cost Search")
+        return self.a_star_search(lambda _: 0)
 
     def a_star_misplaced_tile(self):
         # TODO implement this
-        return 0
+        print("\nA* with misplaced tile heuristic")
+        return self.a_star_search(self.calculate_misplaced_tile)
 
     def a_star_manhattan_distance(self):
         # TODO implement this
-        return 0
+        print("\nA* with manhattan distance heuristic")
+        return self.a_star_search(self.calculate_manhattan_distance)
