@@ -31,10 +31,24 @@ def main():
 
     heuristics = Heuristics(initial_state)
 
-    # call all 3 algorithms
-    heuristics.uniform_cost_search()
-    heuristics.a_star_misplaced_tile()
-    heuristics.a_star_manhattan_distance()
+    # call corresponding algorithm
+    choice = 0
+    print("1. Uniform Cost Search")
+    print("2. A* Search with Misplaced Tile Heuristic")
+    print("3. A* Search with Manhattan Distance Heuristic\n")
+    while True:
+        choice = input("Choose which algorithm to use by entering the number next to it: ")
+        if choice not in ["1", "2", "3"]:
+            print("Invalid input. Please enter a number from 1-3 for the corresponding search.\n")
+        else:
+            break
+
+    if choice == "1":
+        heuristics.uniform_cost_search()
+    elif choice == "2":
+        heuristics.a_star_misplaced_tile()
+    elif choice == "3":
+        heuristics.a_star_manhattan_distance()
 
     return 0
 

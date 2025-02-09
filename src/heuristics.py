@@ -141,6 +141,28 @@ class Heuristics:
 
         return manhattan_distance_heuristic
 
+    def print_solution(self, goal_node: Node):
+        # takes the goal_node as a parameter to print steps to solution
+        # create a list for the path to the goal state
+        path = [goal_node]
+        # get the parent of the goal_node
+        parent = goal_node.parent
+        # traverse backwards, appending parents to path until root is reached
+        while parent:
+            path.append(parent)
+            parent = path[-1].parent
+        # reverse path for correct order
+        path = path[::-1]
+
+        # traverse path, printing the solution
+        print("Solution:\n\nInitial State:")
+        for i in range(0, goal_node.depth + 1):
+            if i != 0:
+                print(f"\nStep {i}: g(n) = {path[i].depth}, h(n) = {path[i].heuristic_cost}")
+            path[i].print_state()
+
+        print("Goal state reached.\n")
+
     '''
     pseudo code for general search algorithm
      
@@ -186,7 +208,7 @@ class Heuristics:
             # if problem.GOAL - TEST(node.STATE) succeeds
             if node.state == Heuristics.goal_state:
                 # goal state reached
-                print(f"Depth of solution: {node.depth}")
+                print(f"\nDepth of solution: {node.depth}")
                 print(f"Number of nodes expanded: {nodes_expanded}")
                 print(f"Maximum queue size: {max_queue_size}")
                 return node
@@ -201,6 +223,8 @@ class Heuristics:
             visited.add(state_tuple)
 
             # nodes = QUEUEING-FUNCTION(nodes, EXPAND(node, problem.OPERATORS))
+            print(f"\nThe best state to expand with a g(n) = {node.depth} and h(n) = {node.heuristic_cost} is:")
+            node.print_state()
             expanded_nodes = node.expand_all()
             # increment the number of nodes expanded
             nodes_expanded += 1

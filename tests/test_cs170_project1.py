@@ -106,8 +106,8 @@ class TestEightPuzzle(unittest.TestCase):
         node.move_tile(2, 2)
         self.assertEqual(node.state, original_state)
 
-    def test_depth_0_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_0_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 0 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_0.uniform_cost_search()
@@ -115,20 +115,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 0)  # Should solve in 0 moves
 
+    def test_depth_0_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 0 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_0.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 0)  # Should solve in 0 moves
 
+    def test_depth_0_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 0 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_0.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 0)  # Should solve in 0 moves
 
-    def test_depth_2_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_2_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 2 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_2.uniform_cost_search()
@@ -136,20 +142,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 2)  # Should solve in 2 moves
 
+    def test_depth_2_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 2 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_2.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 2)  # Should solve in 2 moves
 
+    def test_depth_2_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 2 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_2.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 2)  # Should solve in 2 moves
 
-    def test_depth_4_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_4_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 4 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_4.uniform_cost_search()
@@ -157,20 +169,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 4)  # Should solve in 4 moves
 
+    def test_depth_4_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 4 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_4.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 4)  # Should solve in 4 moves
 
+    def test_depth_4_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 4 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_4.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 4)  # Should solve in 4 moves
 
-    def test_depth_8_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_8_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 8 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_8.uniform_cost_search()
@@ -178,20 +196,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 8)  # Should solve in 8 moves
 
+    def test_depth_8_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 8 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_8.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 8)  # Should solve in 8 moves
 
+    def test_depth_8_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 8 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_8.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 8)  # Should solve in 8 moves
 
-    def test_depth_12_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_12_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 12 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_12.uniform_cost_search()
@@ -199,20 +223,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 12)  # Should solve in 12 moves
 
+    def test_depth_12_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 12 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_12.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 12)  # Should solve in 12 moves
 
+    def test_depth_12_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 12 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_12.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 12)  # Should solve in 12 moves
 
-    def test_depth_16_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_16_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 16 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_16.uniform_cost_search()
@@ -220,20 +250,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 16)  # Should solve in 16 moves
 
+    def test_depth_16_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 16 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_16.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 16)  # Should solve in 16 moves
 
+    def test_depth_16_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 16 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_16.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 16)  # Should solve in 16 moves
 
-    def test_depth_20_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_20_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 20 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_20.uniform_cost_search()
@@ -241,20 +277,26 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 20)  # Should solve in 20 moves
 
+    def test_depth_20_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 20 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_20.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 20)  # Should solve in 20 moves
 
+    def test_depth_20_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 20 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_20.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
         self.assertEqual(manhattan_distance_result.state, Heuristics.goal_state)
         self.assertEqual(manhattan_distance_result.depth, 20)  # Should solve in 20 moves
 
-    def test_depth_24_search(self):
-        """Test if solution paths meet expected lengths"""
+    def test_depth_24_search_ucs(self):
+        # Test if solution paths meet expected lengths
         # Test with depth 24 puzzle
         # Test uniform cost search
         uniform_cost_search_result = self.heuristics_depth_24.uniform_cost_search()
@@ -262,12 +304,18 @@ class TestEightPuzzle(unittest.TestCase):
         self.assertEqual(uniform_cost_search_result.state, Heuristics.goal_state)
         self.assertEqual(uniform_cost_search_result.depth, 24)  # Should solve in 24 moves
 
+    def test_depth_24_search_misplaced(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 24 puzzle
         # Test A* search with misplaced tile heuristic
         misplaced_tile_result = self.heuristics_depth_24.a_star_misplaced_tile()
         self.assertIsNotNone(misplaced_tile_result)
         self.assertEqual(misplaced_tile_result.state, Heuristics.goal_state)
         self.assertEqual(misplaced_tile_result.depth, 24)  # Should solve in 24 moves
 
+    def test_depth_24_search_manhattan(self):
+        # Test if solution paths meet expected lengths
+        # Test with depth 24 puzzle
         # Test A* search with manhattan distance heuristic
         manhattan_distance_result = self.heuristics_depth_24.a_star_manhattan_distance()
         self.assertIsNotNone(manhattan_distance_result)
